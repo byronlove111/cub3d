@@ -1,0 +1,111 @@
+---
+alwaysApply: false
+---
+
+### Projet cub3D : Instructions pour la partie obligatoire
+
+#### Description générale
+
+Ce projet consiste à créer une représentation graphique 3D "réaliste" de l'intérieur d'un labyrinthe depuis une perspective à la première personne, en utilisant les principes de ray-casting. Il est inspiré du jeu Wolfenstein 3D. L'objectif est d'explorer le ray-casting pour générer une vue dynamique dans un labyrinthe où l'on doit naviguer.
+
+#### Langage et normes
+
+- Le projet doit être écrit en C.
+- Respecter la Norme (norminette). Toute erreur de norme entraîne un 0.
+- Les fonctions ne doivent pas planter de manière inattendue (segfault, bus error, double free, etc.), sauf pour des comportements indéfinis. Sinon, le projet est considéré non fonctionnel et reçoit un 0.
+- Toute mémoire allouée sur le heap doit être libérée correctement. Pas de fuites de mémoire.
+- Soumettre un Makefile qui compile les sources avec les flags -Wall, -Wextra et -Werror, en utilisant cc. Pas de relink inutile.
+- Le Makefile doit contenir au moins les règles : $(NAME), all, clean, fclean et re.
+- Si libft est autorisé (oui dans ce cas), copier ses sources et son Makefile dans un dossier libft. Le Makefile du projet doit compiler libft via son propre Makefile, puis compiler le projet.
+- Créer des programmes de test est encouragé, mais non soumis ni noté. Utiles pour la défense.
+- Soumettre le travail dans le dépôt Git assigné. Seul le contenu du dépôt est noté.
+
+#### Fonctions externes autorisées
+
+- open, close, read, write, printf, malloc, free, perror, strerror, exit, gettimeofday.
+- Toutes les fonctions de la bibliothèque math (-lm, voir man 3 math).
+- gettimeofday().
+- Toutes les fonctions de la bibliothèque miniLibX.
+
+#### Contraintes techniques
+
+- Utiliser miniLibX (version système ou sources). Si sources, appliquer les mêmes règles que pour libft.
+- La gestion de la fenêtre doit être fluide : changement de fenêtre, minimisation, etc.
+- Afficher des textures de mur différentes selon l'orientation (Nord, Sud, Est, Ouest). Le choix des textures est libre.
+- Pouvoir définir des couleurs différentes pour le sol et le plafond.
+- Le programme affiche l'image dans une fenêtre et respecte ces règles :
+  - Les touches flèches gauche/droite permettent de regarder à gauche/droite dans le labyrinthe.
+  - Les touches W, A, S, D permettent de déplacer le point de vue dans le labyrinthe.
+  - Appuyer sur ESC ferme la fenêtre et quitte le programme proprement.
+  - Cliquer sur la croix rouge de la fenêtre ferme la fenêtre et quitte le programme proprement.
+  - L'utilisation d'images de la bibliothèque miniLibX est fortement recommandée.
+
+#### Format du fichier de scène (.cub)
+
+- Le programme prend en premier argument un fichier de description de scène avec l'extension .cub.
+- La carte (map) doit être composée uniquement de ces 6 caractères : 0 (espace vide), 1 (mur), et N, S, E ou W (position de départ du joueur et orientation).
+- La carte doit être fermée/entourée de murs ; sinon, retourner une erreur.
+- À part le contenu de la carte, chaque type d'élément peut être séparé par une ou plusieurs lignes vides.
+- À part la carte (qui doit toujours être la dernière), chaque type d'élément peut apparaître dans n'importe quel ordre dans le fichier.
+- À part la carte, chaque information d'un élément peut être séparée par un ou plusieurs espaces.
+- La carte doit être parsée telle quelle dans le fichier. Les espaces font partie valide de la carte et doivent être gérés. Le programme doit pouvoir parser n'importe quelle carte respectant les règles.
+- Chaque élément (sauf la carte) commence par son identifiant (1 ou 2 caractères), suivi de ses informations spécifiques dans un ordre strict :
+  - Texture Nord : NO ./chemin_vers_texture_nord
+    - Identifiant : NO
+    - Chemin vers la texture nord.
+  - Texture Sud : SO ./chemin_vers_texture_sud
+    - Identifiant : SO
+    - Chemin vers la texture sud.
+  - Texture Ouest : WE ./chemin_vers_texture_ouest
+    - Identifiant : WE
+    - Chemin vers la texture ouest.
+  - Texture Est : EA ./chemin_vers_texture_est
+    - Identifiant : EA
+    - Chemin vers la texture est.
+  - Couleur du sol : F R,G,B
+    - Identifiant : F
+    - Couleurs R,G,B dans [0,255] (ex. : 220,100,0).
+  - Couleur du plafond : C R,G,B
+    - Identifiant : C
+    - Couleurs R,G,B dans [0,255] (ex. : 225,30,0).
+- Exemple minimal d'un fichier .cub valide :
+
+  ```
+  NO ./path_to_the_north_texture
+  SO ./path_to_the_south_texture
+  WE ./path_to_the_west_texture
+  EA ./path_to_the_east_texture
+
+  F 220,100,0
+  C 225,30,0
+
+  1111111111111111111111111
+  1000000000110000000000001
+  1011000001110000000000001
+  1001000000000000000000001
+  111111111011000001110000000000001
+  100000000011000001110111111111111
+  11110111111111011100000010001
+  11110111111111011101010010001
+  11000000110101011100000010001
+  10000000000000001100000010001
+  10000000000000001101010010001
+  11000001110101011111011110N0111
+  11110111 1110101 101111010001
+  11111111 1111111 111111111111
+  ```
+
+- Exemple simple de carte valide :
+  ```
+  111111
+  100101
+  101001
+  1100N1
+  111111
+  ```
+- En cas de mauvaise configuration (quelconque) dans le fichier, le programme doit quitter proprement et afficher "Error\n" suivi d'un message d'erreur explicite de votre choix.
+
+#### Soumission et évaluation
+
+- Soumettre les fichiers dans le dépôt Git assigné. Seul le contenu du dépôt est noté.
+- Durant l'évaluation, une petite modification du projet peut être demandée (ex. : changement mineur de comportement, ajout de lignes de code, fonctionnalité simple). Cela doit être faisable en quelques minutes et vise à vérifier la compréhension. Les détails varient et sont spécifiés dans les guidelines d'évaluation.
