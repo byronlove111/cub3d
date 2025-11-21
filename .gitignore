@@ -1,0 +1,26 @@
+# Compiled object files
+obj/
+*.o
+*.a
+
+# Executable
+cub3d
+
+# MinilibX compiled library
+libmlx.dylib
+*.dylib
+*.so
+
+# Swift compiled modules (MinilibX)
+*.swiftmodule
+*.swiftdoc
+*.swiftsourceinfo
+*.abi.json
+
+# OS files
+.DS_Store
+*~
+
+# Debug files
+*.dSYM/
+

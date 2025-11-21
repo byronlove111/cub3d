@@ -45,6 +45,9 @@ jobs:
       - name: Build libft
         run: make -C external/libft
 
+      - name: Clean minilibx (remove precompiled Swift modules)
+        run: make -C external/minilibx_mms_20200219 clean || true
+
       - name: Build minilibx
         run: make -C external/minilibx_mms_20200219
 
