@@ -11,6 +11,12 @@ libmlx.dylib
 *.dylib
 *.so
 
+# Swift compiled modules (MinilibX)
+*.swiftmodule
+*.swiftdoc
+*.swiftsourceinfo
+*.abi.json
+
 # OS files
 .DS_Store
 *~
