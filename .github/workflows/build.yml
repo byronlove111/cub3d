@@ -1,0 +1,55 @@
+name: Build Check
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc make xorg libxext-dev libbsd-dev
+
+      - name: Build libft
+        run: make -C external/libft
+
+      - name: Build minilibx
+        run: make -C external/minilibx-linux
+
+      - name: Build cub3d
+        run: make
+
+      - name: Clean build
+        run: make fclean
+
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Build libft
+        run: make -C external/libft
+
+      - name: Build minilibx
+        run: make -C external/minilibx_mms_20200219
+
+      - name: Build cub3d
+        run: make
+
+      - name: Clean build
+        run: make fclean
