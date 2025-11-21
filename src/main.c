@@ -2,7 +2,8 @@
 
 int	main(void)
 {
-	printf("hello world\n");
-}
+	t_game	game;
 
-// test git branchs
+	render(&game.renderer);
+	return (0);
+}

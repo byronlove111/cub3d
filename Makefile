@@ -1,6 +1,6 @@
 NAME = cub3d
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 LIBFT_DIR = external/libft
@@ -24,7 +24,9 @@ INCLUDES = -I./include -I$(LIBFT_DIR) -I$(MLX_DIR)
 
 OBJ_DIR = obj
 
-SRCS = src/main.c
+SRCS = src/main.c \
+       src/render/render.c \
+       src/utils/error.c
 
 OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
@@ -40,11 +42,14 @@ $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MLX) $(MLX_FLAGS)
 	$(MLX_COPY)
 
-$(OBJ_DIR)/%.o: src/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: src/%.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)/render
+	mkdir -p $(OBJ_DIR)/utils
 
 clean:
 	$(RM) -r $(OBJ_DIR)
