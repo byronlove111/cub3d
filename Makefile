@@ -22,10 +22,11 @@ endif
 
 INCLUDES = -I./include -I$(LIBFT_DIR) -I$(MLX_DIR)
 
+OBJ_DIR = obj
+
 SRCS = src/main.c
 
-
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
@@ -39,11 +40,14 @@ $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MLX) $(MLX_FLAGS)
 	$(MLX_COPY)
 
-%.o: %.c
+$(OBJ_DIR)/%.o: src/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
 clean:
-	$(RM) $(OBJS)
+	$(RM) -r $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(MLX_DIR) clean
 
