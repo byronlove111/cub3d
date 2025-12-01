@@ -30,5 +30,6 @@
 # include "render.h"
 # include "game.h"
 # include "utils.h"
+# include "parsing.h"
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 14:58:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/12/01 11:17:38 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/01 12:01:42 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	render(t_renderer *renderer)
 	t_image	img;
 	t_rect square;
 
-	square.x = 700;
-	square.y = 900;
+	square.x = 300;
+	square.y = 400;
 	square.size = 100;
 	square.color = 0x00FFFF00;
 	
