@@ -12,6 +12,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <fcntl.h>
+# include <math.h>
 
 /*
 ** ============================================================================

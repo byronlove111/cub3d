@@ -1,6 +1,8 @@
 NAME = cub3d
 CC = gcc
-# CFLAGS = -Wall -Wextra -Werror
+# CC = clang
+CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -fsanitize=address -g 
 RM = rm -f
 
 LIBFT_DIR = external/libft
@@ -26,6 +28,8 @@ OBJ_DIR = obj
 
 SRCS = src/main.c \
        src/render/render.c \
+       src/render/draw_utils.c \
+       src/render/draw_square.c \
        src/utils/error.c
 
 OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
