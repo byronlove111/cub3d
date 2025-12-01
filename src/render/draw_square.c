@@ -6,12 +6,13 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 11:06:34 by abbouras          #+#    #+#             */
-/*   Updated: 2025/12/01 11:09:52 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/01 11:44:10 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
+// test code
 void	draw_square(t_image *img, t_rect rect)
 {
 	int	i;
