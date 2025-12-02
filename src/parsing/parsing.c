@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 16:06:33 by mehdi             #+#    #+#             */
-/*   Updated: 2025/12/01 11:50:21 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/02 10:15:53 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ static void	init_struct(t_game *game)
 {
 	game->map = NULL;
 	game->square_map = NULL;
-	game->ceiling = NULL;
+	game->ceiling_color = -1;
 	game->east_wall = NULL;
-	game->floor = NULL;
+	game->floor_color = -1;
 	game->north_wall = NULL;
 	game->south_wall = NULL;
 	game->west_wall = NULL;
@@ -53,8 +53,9 @@ static int	check_elements_valid(t_game *g)
 {
 	if (g->count_element != 6)
 		return (0);
-	if (!g->north_wall || !g->south_wall || !g->west_wall
-		|| !g->east_wall || !g->floor || !g->ceiling)
+	if (!g->north_wall || !g->south_wall || !g->west_wall || !g->east_wall)
+		return (0);
+	if (g->floor_color == -1 || g->ceiling_color == -1)
 		return (0);
 	if (g->row_map_y == -1)
 		return (0);
@@ -82,7 +83,5 @@ int	parsing(t_game *game, char **av)
 	fill_square_map(game, &game->map[game->row_map_y]);
 	if (!map_close(game->square_map))
 		ft_error("Map not close");
-	printf("%s\n%s\n%s\n%s\n%s\n%s\n%d\n%d\n", game->north_wall, game->south_wall, game->west_wall, game->east_wall, game->floor, game->ceiling, game->row_map_y, game->count_element);
-	// print_map(game->square_map);
 	return (1);
 }

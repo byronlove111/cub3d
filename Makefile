@@ -29,7 +29,7 @@ OBJ_DIR = obj
 SRCS = src/main.c \
        src/render/render.c src/render/draw_utils.c src/render/draw_square.c \
 	   src/parsing/parsing.c src/parsing/fill_elements.c src/parsing/create_map.c \
-	   src/parsing/check_char_map.c src/parsing/check_close.c \
+	   src/parsing/check_char_map.c src/parsing/check_close.c src/parsing/parse_color.c \
        src/utils/error.c
 
 OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
@@ -53,6 +53,7 @@ $(OBJ_DIR)/%.o: src/%.c
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)/render
+	mkdir -p $(OBJ_DIR)/parsing
 	mkdir -p $(OBJ_DIR)/utils
 
 clean:

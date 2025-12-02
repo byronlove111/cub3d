@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 11:00:31 by mehdi             #+#    #+#             */
-/*   Updated: 2025/12/01 11:50:05 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/02 10:16:20 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,27 @@ static void	assign_value(char **dest, char *str, int *x, int skip)
 	*dest = dup_no_nl(&str[*x]);
 }
 
+static int	parse_color_element(t_game *g, char *str, int *x, char type)
+{
+	char	*temp_color;
+	int		color;
+
+	*x += 1;
+	while (str[*x] == ' ')
+		(*x)++;
+	temp_color = dup_no_nl(&str[*x]);
+	color = parse_color(temp_color);
+	free(temp_color);
+	if (color == -1)
+		return (0);
+	if (type == 'F')
+		g->floor_color = color;
+	else
+		g->ceiling_color = color;
+	g->count_element++;
+	return (1);
+}
+
 static int	parse_element(t_game *g, char *str, int *x)
 {
 	if (!strncmp(&str[*x], "NO", 2))
@@ -41,9 +62,9 @@ static int	parse_element(t_game *g, char *str, int *x)
 	if (!strncmp(&str[*x], "EA", 2))
 		return (assign_value(&g->east_wall, str, x, 2), g->count_element++, 1);
 	if (str[*x] == 'F')
-		return (assign_value(&g->floor, str, x, 1), g->count_element++, 1);
+		return (parse_color_element(g, str, x, 'F'));
 	if (str[*x] == 'C')
-		return (assign_value(&g->ceiling, str, x, 1), g->count_element++, 1);
+		return (parse_color_element(g, str, x, 'C'));
 	return (0);
 }
 
