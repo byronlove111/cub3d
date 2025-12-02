@@ -12,9 +12,6 @@
 
 #include "../include/cub3d.h"
 
-/**
- * Libère un tableau de chaînes (résultat de ft_split)
- */
 static void	free_split(char **split)
 {
 	int	i;
@@ -30,9 +27,6 @@ static void	free_split(char **split)
 	free(split);
 }
 
-/**
- * Compte le nombre d'éléments dans un tableau de chaînes
- */
 static int	count_split(char **split)
 {
 	int	count;
@@ -43,9 +37,6 @@ static int	count_split(char **split)
 	return (count);
 }
 
-/**
- * Vérifie qu'une string ne contient que des chiffres
- */
 static int	is_numeric(char *str)
 {
 	int	i;
