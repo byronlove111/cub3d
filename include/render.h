@@ -37,7 +37,7 @@ typedef struct s_rect {
 ** ============================================================================
 */
 
-int	render(t_renderer *renderer);
+int	render(t_renderer *renderer, t_game *game);
 void	put_pixel(t_image *img, int x, int y, int color);
 void	draw_square(t_image *img, t_rect rect);
 

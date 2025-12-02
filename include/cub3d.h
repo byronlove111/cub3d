@@ -27,8 +27,8 @@
 ** INCLUDES INTERNES
 ** ============================================================================
 */
-# include "render.h"
 # include "game.h"
+# include "render.h"
 # include "utils.h"
 # include "parsing.h"
 

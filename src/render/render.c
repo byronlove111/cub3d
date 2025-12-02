@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 14:58:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/12/01 12:01:42 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/02 09:18:16 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ static void init_image(t_renderer *renderer, t_image *img)
 /*
 	hub function to render the game
 	@param renderer: the renderer
+	@param game: the game data (map, textures, colors, etc.)
 	@return 0 on success, 1 on error
 */
-int	render(t_renderer *renderer)
+int	render(t_renderer *renderer, t_game *game)
 {
 	t_image	img;
 	t_rect square;
 
+	(void)game;  // Paramètre pas encore utilisé, mais prêt pour le raycasting
 	square.x = 300;
 	square.y = 400;
 	square.size = 100;
@@ -55,6 +57,12 @@ int	render(t_renderer *renderer)
 	init_minilibx(renderer);
 	init_window(renderer);
 	init_image(renderer, &img);
+	
+	// Exemple : Le renderer peut maintenant accéder aux données du game
+	// printf("Map height: %d\n", game->row_map_y);
+	// printf("Floor color: %s\n", game->floor);
+	// printf("Ceiling color: %s\n", game->ceiling);
+	
 	draw_square(&img, square);
 	mlx_put_image_to_window(renderer->mlx_ptr, renderer->mlx_win, img.img, 0, 0);
 	mlx_loop(renderer->mlx_ptr);

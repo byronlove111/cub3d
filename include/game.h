@@ -15,7 +15,6 @@ typedef struct s_game {
 
 	int		count_element;
 	int		row_map_y;
-	t_renderer	renderer;
 }	t_game;
 
 #endif
