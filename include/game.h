@@ -10,12 +10,11 @@ typedef struct s_game {
 	char	*south_wall;
 	char	*east_wall;
 	char	*west_wall;
-	char	*floor;
-	char	*ceiling;
+	int		floor_color;
+	int		ceiling_color;
 
 	int		count_element;
 	int		row_map_y;
-	t_renderer	renderer;
 }	t_game;
 
 #endif
