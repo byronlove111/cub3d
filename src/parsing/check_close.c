@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 11:37:25 by mehdi             #+#    #+#             */
-/*   Updated: 2025/12/01 11:53:08 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/02 11:54:11 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,33 +30,35 @@ void	fill_square_map(t_game *game, char **map)
 			max_line = ft_strlen(map[y]);
 		y++;
 	}
-	game->square_map = malloc(sizeof(char *) * (height + 1));
-	if (!game->square_map)
+	game->map.square = malloc(sizeof(char *) * (height + 1));
+	if (!game->map.square)
 		return ;
+	game->map.width = (int)max_line;
+	game->map.height = height;
 	y = 0;
 	while (y < height)
 	{
 		x = 0;
-		game->square_map[y] = malloc(sizeof(char) * (max_line + 1));
-		if (!game->square_map[y])
+		game->map.square[y] = malloc(sizeof(char) * (max_line + 1));
+		if (!game->map.square[y])
 			return ;
 		while (map[y][x])
 		{
 			if (map[y][x] == ' ' || map[y][x] == '\n')
-				game->square_map[y][x] = '2';
+				game->map.square[y][x] = '2';
 			else
-				game->square_map[y][x] = map[y][x];
+				game->map.square[y][x] = map[y][x];
 			x++;
 		}
 		while (x < (int)max_line)
 		{
-			game->square_map[y][x] = '2';
+			game->map.square[y][x] = '2';
 			x++;
 		}
-		game->square_map[y][x] = '\0';
+		game->map.square[y][x] = '\0';
 		y++;
 	}
-	game->square_map[y] = NULL;
+	game->map.square[y] = NULL;
 }
 
 int	map_close(char **map)

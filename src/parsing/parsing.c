@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 16:06:33 by mehdi             #+#    #+#             */
-/*   Updated: 2025/12/02 10:15:53 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/02 11:58:20 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,19 @@
 
 static void	init_struct(t_game *game)
 {
-	game->map = NULL;
-	game->square_map = NULL;
-	game->ceiling_color = -1;
-	game->east_wall = NULL;
+	game->map.data = NULL;
+	game->map.square = NULL;
+	game->map.width = 0;
+	game->map.height = 0;
+	game->textures.north = NULL;
+	game->textures.south = NULL;
+	game->textures.east = NULL;
+	game->textures.west = NULL;
 	game->floor_color = -1;
-	game->north_wall = NULL;
-	game->south_wall = NULL;
-	game->west_wall = NULL;
-	game->row_map_y = -1;
-	game->count_element = 0;
+	game->ceiling_color = -1;
+	game->player.pos_x = 0;
+	game->player.pos_y = 0;
+	game->player.dir = '\0';
 }
 
 int	check_file_cub(const char *file)
@@ -49,39 +52,44 @@ void	print_map(char **map)
 	}
 }
 
-static int	check_elements_valid(t_game *g)
+static int	check_elements_valid(t_game *g, int count_element, int row_map_y)
 {
-	if (g->count_element != 6)
+	if (count_element != 6)
 		return (0);
-	if (!g->north_wall || !g->south_wall || !g->west_wall || !g->east_wall)
+	if (!g->textures.north || !g->textures.south
+		|| !g->textures.west || !g->textures.east)
 		return (0);
 	if (g->floor_color == -1 || g->ceiling_color == -1)
 		return (0);
-	if (g->row_map_y == -1)
+	if (row_map_y == -1)
 		return (0);
 	return (1);
 }
 
 int	parsing(t_game *game, char **av)
 {
+	int	count_element;
+	int	row_map_y;
+
 	init_struct(game);
 	if (!check_file_cub(av[1]))
 		ft_error("file is not a .cub");
-	game->map = create_map(av[1]);
-	if (!game->map)
+	game->map.data = create_map(av[1]);
+	if (!game->map.data)
 		ft_error("void map");
-	if (!fill_elements(game))
+	if (!fill_elements(game, &count_element, &row_map_y))
 		ft_error("Invalid map");
-	if (!check_elements_valid(game))
+	if (!check_elements_valid(game, count_element, row_map_y))
 		ft_error("Invalid map");
-	if (!check_left_wall(&game->map[game->row_map_y]))
+	if (!check_left_wall(&game->map.data[row_map_y]))
 		ft_error("Invalid walls");
-	if (!check_char(&game->map[game->row_map_y]))
+	if (!check_char(&game->map.data[row_map_y]))
 		ft_error("Invalid char");
-	if (!check_top_bottom_walls(&game->map[game->row_map_y]))
+	find_player_position(game, &game->map.data[row_map_y]);
+	if (!check_top_bottom_walls(&game->map.data[row_map_y]))
 		ft_error("Invalid walls top");
-	fill_square_map(game, &game->map[game->row_map_y]);
-	if (!map_close(game->square_map))
+	fill_square_map(game, &game->map.data[row_map_y]);
+	if (!map_close(game->map.square))
 		ft_error("Map not close");
 	return (1);
 }

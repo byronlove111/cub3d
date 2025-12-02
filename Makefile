@@ -27,7 +27,7 @@ INCLUDES = -I./include -I$(LIBFT_DIR) -I$(MLX_DIR)
 OBJ_DIR = obj
 
 SRCS = src/main.c \
-       src/render/render.c src/render/draw_utils.c src/render/draw_square.c \
+       src/render/render.c src/render/draw_utils.c \
 	   src/parsing/parsing.c src/parsing/fill_elements.c src/parsing/create_map.c \
 	   src/parsing/check_char_map.c src/parsing/check_close.c src/parsing/parse_color.c \
        src/utils/error.c

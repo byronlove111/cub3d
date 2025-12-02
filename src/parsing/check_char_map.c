@@ -32,6 +32,11 @@ static int	is_invalid_map_char(char c)
 			|| c == 'S' || c == 'E' || c == 'W' || c == '\n'));
 }
 
+static int	is_player_char(char c)
+{
+	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
+
 int	check_char(char **map)
 {
 	int	x;
@@ -47,8 +52,7 @@ int	check_char(char **map)
 		{
 			if (is_invalid_map_char(map[y][x]))
 				return (0);
-			if (map[y][x] == 'N' || map[y][x] == 'S' ||
-				map[y][x] == 'E' || map[y][x] == 'W')
+			if (is_player_char(map[y][x]))
 				count++;
 			x++;
 		}
@@ -59,6 +63,33 @@ int	check_char(char **map)
 		return (1);
 	else
 		return (0);
+}
+
+/*
+** Trouve et stocke la position et l'orientation du joueur dans la map
+*/
+void	find_player_position(t_game *game, char **map)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (is_player_char(map[y][x]))
+			{
+				game->player.pos_x = (double)x + 0.5;
+				game->player.pos_y = (double)y + 0.5;
+				game->player.dir = map[y][x];
+				return ;
+			}
+			x++;
+		}
+		y++;
+	}
 }
 
 int	check_top_bottom_walls(char **map)
