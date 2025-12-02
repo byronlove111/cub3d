@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 11:00:31 by mehdi             #+#    #+#             */
-/*   Updated: 2025/12/02 10:16:20 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/02 11:54:11 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,47 +47,48 @@ static int	parse_color_element(t_game *g, char *str, int *x, char type)
 		g->floor_color = color;
 	else
 		g->ceiling_color = color;
-	g->count_element++;
 	return (1);
 }
 
-static int	parse_element(t_game *g, char *str, int *x)
+static int	parse_element(t_game *g, char *str, int *x, int *count)
 {
 	if (!strncmp(&str[*x], "NO", 2))
-		return (assign_value(&g->north_wall, str, x, 2), g->count_element++, 1);
+		return (assign_value(&g->textures.north, str, x, 2), (*count)++, 1);
 	if (!strncmp(&str[*x], "SO", 2))
-		return (assign_value(&g->south_wall, str, x, 2), g->count_element++, 1);
+		return (assign_value(&g->textures.south, str, x, 2), (*count)++, 1);
 	if (!strncmp(&str[*x], "WE", 2))
-		return (assign_value(&g->west_wall, str, x, 2), g->count_element++, 1);
+		return (assign_value(&g->textures.west, str, x, 2), (*count)++, 1);
 	if (!strncmp(&str[*x], "EA", 2))
-		return (assign_value(&g->east_wall, str, x, 2), g->count_element++, 1);
+		return (assign_value(&g->textures.east, str, x, 2), (*count)++, 1);
 	if (str[*x] == 'F')
-		return (parse_color_element(g, str, x, 'F'));
+		return (parse_color_element(g, str, x, 'F'), (*count)++, 1);
 	if (str[*x] == 'C')
-		return (parse_color_element(g, str, x, 'C'));
+		return (parse_color_element(g, str, x, 'C'), (*count)++, 1);
 	return (0);
 }
 
-int	fill_elements(t_game *g)
+int	fill_elements(t_game *g, int *count_element, int *row_map_y)
 {
 	int	y;
 	int	x;
 
 	y = 0;
-	while (g->map[y])
+	*count_element = 0;
+	*row_map_y = -1;
+	while (g->map.data[y])
 	{
 		x = 0;
-		while (g->map[y][x] == ' ')
+		while (g->map.data[y][x] == ' ')
 			x++;
-		if (!g->map[y][x] || g->map[y][x] == '\n')
+		if (!g->map.data[y][x] || g->map.data[y][x] == '\n')
 		{
 			y++;
 			continue ;
 		}
-		if (parse_element(g, g->map[y], &x))
+		if (parse_element(g, g->map.data[y], &x, count_element))
 			;
-		else if (g->map[y][x] == '1')
-			return (g->row_map_y = y, 1);
+		else if (g->map.data[y][x] == '1')
+			return (*row_map_y = y, 1);
 		else
 			return (0);
 		y++;

@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 14:58:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/12/02 09:18:16 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/02 11:57:37 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ int	render(t_renderer *renderer, t_game *game)
 	init_window(renderer);
 	init_image(renderer, &img);
 	
+	draw_player(&img, game);
 	// Exemple : Le renderer peut maintenant accéder aux données du game
 	// printf("Map height: %d\n", game->row_map_y);
 	// printf("Floor color: %s\n", game->floor);
 	// printf("Ceiling color: %s\n", game->ceiling);
 	
-	draw_square(&img, square);
 	mlx_put_image_to_window(renderer->mlx_ptr, renderer->mlx_win, img.img, 0, 0);
 	mlx_loop(renderer->mlx_ptr);
 	return (0);
