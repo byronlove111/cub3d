@@ -20,7 +20,7 @@ typedef struct s_map {
 typedef struct s_player {
 	double	pos_x;
 	double	pos_y;
-	char	dir;
+	char	orientation;
 }	t_player;
 
 typedef struct s_game {

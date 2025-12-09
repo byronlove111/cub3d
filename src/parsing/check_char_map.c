@@ -83,7 +83,7 @@ void	find_player_position(t_game *game, char **map)
 			{
 				game->player.pos_x = (double)x + 0.5;
 				game->player.pos_y = (double)y + 0.5;
-				game->player.dir = map[y][x];
+				game->player.orientation = map[y][x];
 				return ;
 			}
 			x++;
