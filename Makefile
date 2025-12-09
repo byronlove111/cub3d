@@ -1,8 +1,8 @@
 NAME = cub3d
 CC = gcc
 # CC = clang
-CFLAGS = -Wall -Wextra -Werror
-# CFLAGS = -fsanitize=address -g 
+# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -fsanitize=address -g 
 RM = rm -f
 
 LIBFT_DIR = external/libft
@@ -27,6 +27,7 @@ INCLUDES = -I./include -I$(LIBFT_DIR) -I$(MLX_DIR)
 OBJ_DIR = obj
 
 SRCS = src/main.c \
+       src/game/game.c src/game/init_player_direction.c \
        src/render/render.c src/render/draw_utils.c \
 	   src/parsing/parsing.c src/parsing/fill_elements.c src/parsing/create_map.c \
 	   src/parsing/check_char_map.c src/parsing/check_close.c src/parsing/parse_color.c \
@@ -52,6 +53,7 @@ $(OBJ_DIR)/%.o: src/%.c
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)/game
 	mkdir -p $(OBJ_DIR)/render
 	mkdir -p $(OBJ_DIR)/parsing
 	mkdir -p $(OBJ_DIR)/utils

@@ -55,4 +55,7 @@ typedef struct s_game {
 	t_player	player;
 }	t_game;
 
+void	init_game(t_game *game);
+void	init_player_direction(t_player *player);
+
 #endif

@@ -8,6 +8,7 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		ft_error("Usage: ./cub3d <map_file>");
 	parsing(&game, av);
-	render(&renderer, &game);  // Communication : on passe game au renderer
+	init_game(&game);
+	// render(&renderer, &game);
 	return (0);
 }
