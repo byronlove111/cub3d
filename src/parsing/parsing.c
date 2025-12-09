@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 16:06:33 by mehdi             #+#    #+#             */
-/*   Updated: 2025/12/09 10:57:28 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/09 12:48:43 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	init_struct(t_game *game)
 	game->ceiling_color = -1;
 	game->player.pos_x = 0;
 	game->player.pos_y = 0;
-	game->player.orientation = '\0';
+	game->player.direction = '\0';
 }
 
 int	check_file_cub(const char *file)

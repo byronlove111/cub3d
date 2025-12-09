@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 11:35:01 by mehdi             #+#    #+#             */
-/*   Updated: 2025/12/01 11:49:22 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/09 12:48:42 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	check_char(char **map)
 }
 
 /*
-** Trouve et stocke la position et l'orientation du joueur dans la map
+** Trouve et stocke la position et la direction du joueur dans la map
 */
 void	find_player_position(t_game *game, char **map)
 {
@@ -83,7 +83,7 @@ void	find_player_position(t_game *game, char **map)
 			{
 				game->player.pos_x = (double)x + 0.5;
 				game->player.pos_y = (double)y + 0.5;
-				game->player.orientation = map[y][x];
+				game->player.direction = map[y][x];
 				return ;
 			}
 			x++;
