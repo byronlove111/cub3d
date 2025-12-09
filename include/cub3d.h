@@ -27,6 +27,7 @@
 ** INCLUDES INTERNES
 ** ============================================================================
 */
+# include "keys.h"
 # include "game.h"
 # include "render.h"
 # include "utils.h"

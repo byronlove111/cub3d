@@ -58,4 +58,8 @@ typedef struct s_game {
 void	init_game(t_game *game);
 void	init_player_direction(t_player *player);
 
+/* Controls */
+int		handle_keypress(int keycode, void *param);
+int		close_game(void *param);
+
 #endif
