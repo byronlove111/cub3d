@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 13:56:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/12/10 13:58:56 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/10 16:48:05 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,18 @@ void	move_forward_backward(t_game *game, int keycode)
 {
 	double	new_x;
 	double	new_y;
-	double	move_speed;
 
-	move_speed = 1.0;
+	(void)new_x;
+	(void)new_y;
 	if (keycode == KEY_W)
 	{
-		new_x = game->player.pos_x + game->player.dir_x * move_speed;
-		new_y = game->player.pos_y + game->player.dir_y * move_speed;
+		new_x = game->player.pos_x + game->player.dir_x * MOVE_SPEED;
+		new_y = game->player.pos_y + game->player.dir_y * MOVE_SPEED;
 	}
 	else
 	{
-		new_x = game->player.pos_x - game->player.dir_x * move_speed;
-		new_y = game->player.pos_y - game->player.dir_y * move_speed;
+		new_x = game->player.pos_x - game->player.dir_x * MOVE_SPEED;
+		new_y = game->player.pos_y - game->player.dir_y * MOVE_SPEED;
 	}
 	if (is_valid_position(game, new_x, game->player.pos_y))
 		game->player.pos_x = new_x;
@@ -65,18 +65,18 @@ void	move_strafe(t_game *game, int keycode)
 {
 	double	new_x;
 	double	new_y;
-	double	move_speed;
 
-	move_speed = 1.0;
+	(void)new_x;
+	(void)new_y;
 	if (keycode == KEY_A)
 	{
-		new_x = game->player.pos_x - game->player.plane_x * move_speed;
-		new_y = game->player.pos_y - game->player.plane_y * move_speed;
+		new_x = game->player.pos_x - game->player.plane_x * MOVE_SPEED;
+		new_y = game->player.pos_y - game->player.plane_y * MOVE_SPEED;
 	}
 	else
 	{
-		new_x = game->player.pos_x + game->player.plane_x * move_speed;
-		new_y = game->player.pos_y + game->player.plane_y * move_speed;
+		new_x = game->player.pos_x + game->player.plane_x * MOVE_SPEED;
+		new_y = game->player.pos_y + game->player.plane_y * MOVE_SPEED;
 	}
 	if (is_valid_position(game, new_x, game->player.pos_y))
 		game->player.pos_x = new_x;
@@ -94,7 +94,7 @@ void	rotate_player(t_game *game, int keycode)
 	double	old_plane_x;
 	double	rot_speed;
 
-	rot_speed = 0.2;
+	rot_speed = ROT_SPEED;
 	if (keycode == KEY_LEFT)
 		rot_speed = -rot_speed;
 	old_dir_x = game->player.dir_x;

@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 16:00:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/12/10 13:58:51 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/10 16:48:05 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ int	close_game(void *param)
 	t_app	*app;
 
 	app = (t_app *)param;
-	printf("Fermeture du jeu...\n");
-	(void)app;
-	exit(0);
+	ft_putstr_fd("Fermeture du jeu...\n", 1);
+	cleanup_and_exit(app);
 	return (0);
 }
