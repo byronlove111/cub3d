@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/01 10:21:28 by abbouras          #+#    #+#             */
-/*   Updated: 2025/12/02 11:59:15 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/10 12:39:17 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,30 @@ void	put_pixel(t_image *img, int x, int y, int color)
 		return ;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
+}
+
+void	clear_image(t_image *img)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < img->height)
+	{
+		x = 0;
+		while (x < img->width)
+		{
+			put_pixel(img, x, y, 0x00000000);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	redraw_scene(t_app *app)
+{
+	clear_image(&app->img);
+	draw_player(&app->img, app->game);
+	mlx_put_image_to_window(app->renderer->mlx_ptr,
+		app->renderer->mlx_win, app->img.img, 0, 0);
 }

@@ -62,4 +62,10 @@ void	init_player_direction(t_player *player);
 int		handle_keypress(int keycode, void *param);
 int		close_game(void *param);
 
+/* Movements */
+int		is_valid_position(t_game *game, double x, double y);
+void	move_forward_backward(t_game *game, int keycode);
+void	move_strafe(t_game *game, int keycode);
+void	rotate_player(t_game *game, int keycode);
+
 #endif

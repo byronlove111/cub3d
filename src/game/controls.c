@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 16:00:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/12/09 16:25:24 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/10 13:58:51 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ** Callback appelé quand une touche est pressée
-** Pour l'instant, affiche juste le keycode pour debug
+** Gère les déplacements et rotations du joueur
 */
 int	handle_keypress(int keycode, void *param)
 {
@@ -23,18 +23,21 @@ int	handle_keypress(int keycode, void *param)
 	app = (t_app *)param;
 	if (keycode == KEY_ESC)
 		close_game(app);
-	else if (keycode == KEY_W)
-		printf("W - Avancer\n");
-	else if (keycode == KEY_S)
-		printf("S - Reculer\n");
-	else if (keycode == KEY_A)
-		printf("A - Gauche\n");
-	else if (keycode == KEY_D)
-		printf("D - Droite\n");
-	else if (keycode == KEY_LEFT)
-		printf("Flèche gauche - Rotation gauche\n");
-	else if (keycode == KEY_RIGHT)
-		printf("Flèche droite - Rotation droite\n");
+	else if (keycode == KEY_W || keycode == KEY_S)
+	{
+		move_forward_backward(app->game, keycode);
+		redraw_scene(app);
+	}
+	else if (keycode == KEY_A || keycode == KEY_D)
+	{
+		move_strafe(app->game, keycode);
+		redraw_scene(app);
+	}
+	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT)
+	{
+		rotate_player(app->game, keycode);
+		redraw_scene(app);
+	}
 	return (0);
 }
 

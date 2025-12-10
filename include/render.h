@@ -54,5 +54,7 @@ typedef struct s_app {
 int		render(t_app *app);
 void	put_pixel(t_image *img, int x, int y, int color);
 void	draw_player(t_image *img, t_game *game);
+void	clear_image(t_image *img);
+void	redraw_scene(t_app *app);
 
 #endif
