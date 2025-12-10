@@ -3,6 +3,14 @@
 
 /*
 ** ============================================================================
+** FORWARD DECLARATIONS
+** ============================================================================
+*/
+
+typedef struct s_game	t_game;
+
+/*
+** ============================================================================
 ** STRUCTURES
 ** ============================================================================
 */
@@ -31,14 +39,22 @@ typedef struct s_rect {
 	int		color;
 }	t_rect;
 
+typedef struct s_app {
+	t_game		*game;
+	t_renderer	*renderer;
+	t_image		img;
+}	t_app;
+
 /*
 ** ============================================================================
 ** FONCTIONS
 ** ============================================================================
 */
 
-int	render(t_renderer *renderer, t_game *game);
+int		render(t_app *app);
 void	put_pixel(t_image *img, int x, int y, int color);
 void	draw_player(t_image *img, t_game *game);
+void	clear_image(t_image *img);
+void	redraw_scene(t_app *app);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abbouras <abbouras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 14:58:00 by abbouras          #+#    #+#             */
-/*   Updated: 2025/12/02 12:13:22 by abbouras         ###   ########.fr       */
+/*   Updated: 2025/12/09 16:08:02 by abbouras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,28 @@ static void init_image(t_renderer *renderer, t_image *img)
 		&img->endian);
 }
 
+static void	setup_hooks(t_app *app)
+{
+	mlx_hook(app->renderer->mlx_win, EVENT_KEY_PRESS, KEY_PRESS_MASK,
+		handle_keypress, app);
+	mlx_hook(app->renderer->mlx_win, EVENT_DESTROY_NOTIFY, 0,
+		close_game, app);
+}
+
 /*
 	hub function to render the game
-	@param renderer: the renderer
-	@param game: the game data (map, textures, colors, etc.)
+	@param app: structure contenant game et renderer
 	@return 0 on success, 1 on error
 */
-int	render(t_renderer *renderer, t_game *game)
+int	render(t_app *app)
 {
-	t_image	img;
-
-	init_minilibx(renderer);
-	init_window(renderer);
-	init_image(renderer, &img);
-	draw_player(&img, game);
-	mlx_put_image_to_window(renderer->mlx_ptr, renderer->mlx_win, img.img, 0, 0);
-	mlx_loop(renderer->mlx_ptr);
+	init_minilibx(app->renderer);
+	init_window(app->renderer);
+	init_image(app->renderer, &app->img);
+	draw_player(&app->img, app->game);
+	mlx_put_image_to_window(app->renderer->mlx_ptr,
+		app->renderer->mlx_win, app->img.img, 0, 0);
+	setup_hooks(app);
+	mlx_loop(app->renderer->mlx_ptr);
 	return (0);
 }

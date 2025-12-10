@@ -3,6 +3,22 @@
 
 # include "../include/cub3d.h"
 
+/*
+** ============================================================================
+** CONSTANTES DE JEU
+** ============================================================================
+*/
+
+# define MOVE_SPEED 1.0
+# define ROT_SPEED 0.2
+# define COLLISION_RADIUS 0.3
+
+/*
+** ============================================================================
+** STRUCTURES
+** ============================================================================
+*/
+
 typedef struct s_textures {
 	char	*north;
 	char	*south;
@@ -57,5 +73,15 @@ typedef struct s_game {
 
 void	init_game(t_game *game);
 void	init_player_direction(t_player *player);
+
+/* Controls */
+int		handle_keypress(int keycode, void *param);
+int		close_game(void *param);
+
+/* Movements */
+int		is_valid_position(t_game *game, double x, double y);
+void	move_forward_backward(t_game *game, int keycode);
+void	move_strafe(t_game *game, int keycode);
+void	rotate_player(t_game *game, int keycode);
 
 #endif

@@ -27,11 +27,12 @@ INCLUDES = -I./include -I$(LIBFT_DIR) -I$(MLX_DIR)
 OBJ_DIR = obj
 
 SRCS = src/main.c \
-       src/game/game.c src/game/init_player_direction.c \
+       src/game/game.c src/game/init_player_direction.c src/game/controls.c \
+       src/game/movements.c \
        src/render/render.c src/render/draw_utils.c \
 	   src/parsing/parsing.c src/parsing/fill_elements.c src/parsing/create_map.c \
 	   src/parsing/check_char_map.c src/parsing/check_close.c src/parsing/parse_color.c \
-       src/utils/error.c
+       src/utils/error.c src/utils/cleanup.c
 
 OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
